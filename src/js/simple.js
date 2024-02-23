@@ -1,33 +1,24 @@
-let container;
-let canvas;
-let ctx;
-let center;
+const SimpleAnimator = require('../../src/js/simpleAnimator');
+const DotDrawObject = require('../../src/js/simpleObject');
+
+let simpleAnimator = new SimpleAnimator();
+
+function browserInit() {
+	setup();
+	initObject();
+	simpleAnimator.startAnimationLoop();
+}
 
 function setup() {
-	createCanvas();
+	simpleAnimator.createCanvas();
 }
 
-function createCanvas() {
-  container = document.querySelector('.content');
-	canvas = {
-		a: document.createElement('canvas'),
-		b: document.createElement('canvas')
-	};
-	canvas.b.style = `
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-	`;
-	container.appendChild(canvas.b);
-	ctx = {
-		a: canvas.a.getContext('2d'),
-		b: canvas.b.getContext('2d')
-  };
-  center = [];
+function initObject() {
+	dot = new DotDrawObject(simpleAnimator.ctx.a);
+	simpleAnimator.objects = dot;
 }
 
-window.addEventListener('load', setup);
+// Runs automatically when in browser
+window.addEventListener('load', browserInit);
 
 module.exports = setup;
