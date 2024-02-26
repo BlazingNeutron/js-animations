@@ -1,5 +1,5 @@
 const SimpleAnimator = require('../../src/js/simpleAnimator');
-const DotDrawObject = require('../../src/js/simpleObject');
+const Wavey = require('../../src/js/Wavey');
 
 let simpleAnimator = new SimpleAnimator();
 
@@ -14,11 +14,12 @@ function setup() {
 }
 
 function initObject() {
-	dot = new DotDrawObject(simpleAnimator.ctx.a);
+	dot = new Wavey(simpleAnimator.ctx.a);
 	simpleAnimator.objects = dot;
 }
 
 // Runs automatically when in browser
 window.addEventListener('load', browserInit);
+window.addEventListener("resize", () => simpleAnimator.resizeReset());
 
 module.exports = setup;

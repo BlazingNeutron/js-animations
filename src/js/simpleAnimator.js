@@ -28,6 +28,7 @@ const SimpleAnimator = function () {
                 a: this.canvas.a.getContext('2d'),
                 b: this.canvas.b.getContext('2d')
             };
+            this.resizeReset();
         },
 
         updateObjectAndSwapFrame() {
@@ -54,6 +55,18 @@ const SimpleAnimator = function () {
         animationLoop() {
             this.updateObjectAndSwapFrame();
             requestAnimationFrame(() => this.animationLoop());
+        },
+
+        resizeReset() {
+            this.canvas.a.width = window.innerWidth;
+            this.canvas.a.height = window.innerHeight;
+        
+            this.ctx.a.drawImage(this.canvas.b, 0, 0);
+        
+            this.canvas.b.width = window.innerWidth;
+            this.canvas.b.height = window.innerHeight;
+        
+            this.ctx.b.drawImage(this.canvas.a, 0, 0);
         }
     }
 }

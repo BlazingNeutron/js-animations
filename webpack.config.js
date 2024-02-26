@@ -3,19 +3,19 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV == 'production';
 
-
 const stylesHandler = 'style-loader';
-
-
 
 const config = {
     entry: './src/js/simple.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         clean: true,
+        publicPath: '',
     },
     devServer: {
         open: true,
@@ -27,28 +27,28 @@ const config = {
             scriptLoading: 'blocking',
             filename: 'index.html'
         }),
-
-        // Add your plugins here
-        // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+        new HtmlInlineScriptPlugin(),
     ],
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/i,
                 loader: 'babel-loader',
+
             },
             {
                 test: /\.css$/i,
-                use: [stylesHandler,'css-loader'],
+                use: [stylesHandler, 'css-loader'],
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
                 type: 'asset',
             },
-
-            // Add your rules for custom modules here
-            // Learn more about loaders from https://webpack.js.org/loaders/
         ],
+    },
+    optimization: {
+        minimize: true,
+        minimizer: [new TerserPlugin()],
     },
 };
 
