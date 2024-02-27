@@ -27,7 +27,6 @@ const config = {
             scriptLoading: 'blocking',
             filename: 'index.html'
         }),
-        new HtmlInlineScriptPlugin(),
     ],
     module: {
         rules: [
@@ -47,7 +46,7 @@ const config = {
         ],
     },
     optimization: {
-        minimize: true,
+        minimize: isProduction,
         minimizer: [new TerserPlugin()],
     },
 };
@@ -58,7 +57,7 @@ module.exports = () => {
         
         
         config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
-        
+        config.plugins.push(new HtmlInlineScriptPlugin());
     } else {
         config.mode = 'development';
     }
