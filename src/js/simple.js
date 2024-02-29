@@ -1,5 +1,5 @@
 const SimpleAnimator = require('../../src/js/simpleAnimator');
-const Wavey = require('../../src/js/Wavey');
+const WaveyDots = require('../../src/js/WaveyDots');
 
 let simpleAnimator = new SimpleAnimator();
 
@@ -14,7 +14,7 @@ function setup() {
 }
 
 function initObject() {
-	dot = new Wavey(simpleAnimator.ctx.a);
+	dot = new WaveyDots(simpleAnimator.ctx.a);
 	simpleAnimator.objects = dot;
 }
 
